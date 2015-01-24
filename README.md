@@ -1,6 +1,8 @@
 # Coursera---R-Shiny-Tool
 R Shiny Tool on Basic Visualisations - Coursera Assignment
+
 Welcome to R Visuals
+
 R has been a great Tool for Visualisations with numerous packages like ggplot2, ggvis, plotify etc.
 
 This tool intends to cover Basic Plots using ggplot2 and ggvis packages
