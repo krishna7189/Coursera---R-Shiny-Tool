@@ -7,38 +7,38 @@ shinyServer(function(input, output,session)
   InputData <- reactive({inFile <- input$data
                          if (is.null(inFile))
                            return(NULL)
-                     read.csv(inFile$datapath, header=input$header, sep=input$sep, quote=input$quote,stringsAsFactors=FALSE)
- })
+                         read.csv(inFile$datapath, header=input$header, sep=input$sep, quote=input$quote,stringsAsFactors=FALSE)
+  })
   
- output$Summary<-renderTable({
+  output$Summary<-renderTable({
     if (is.null(InputData()))
-    return(NULL)
+      return(NULL)
     
-      summary(InputData())
+    summary(InputData())
     
   })
- output$headname <- renderText({
-   paste("First",input$obs, "observations" )
- })
-    
+  output$headname <- renderText({
+    paste("First",input$obs, "observations" )
+  })
+  
   output$head<-renderTable({
     if (is.null(InputData()))
-    return(NULL)
+      return(NULL)
     
-      
-      head(InputData(),n=input$obs)
+    
+    head(InputData(),n=input$obs)
     
     
   })
- output$str<-renderPrint({
-   if (is.null(InputData()))
-   return(NULL)
-   str(InputData())
-   
-   
- })
-  
+  output$str<-renderPrint({
+    if (is.null(InputData()))
+      return(NULL)
+    str(InputData())
     
+    
+  })
+  
+  
   observe({
     data1 <- InputData()
     updateSelectInput(session,"xvar",choices=names(data1))
@@ -97,36 +97,5 @@ shinyServer(function(input, output,session)
     
   })
   
-  
-  abc<-reactive({if (is.null(InputData()))
-    return(NULL)
-    else {                   
-                   B<-subset( InputData(), select=c(input$xvar1,input$yvar1,input$fill1))
-                   names(B)<-c("x","y","fill")
-                   return(B)
-                 }})
-  
-  
-  observe({
-    if (is.null(InputData()))
-      return(NULL) else {
-      
-      abc() %>% ggvis(x=~x,y=~y,fill=~fill) %>%
-        layer_points(size := input_slider(25, 300, label = "Bubble Size")) %>%
-        add_axis("x", title = input$xvar1) %>%
-        add_axis("y", title = input$yvar1) %>%
-        add_legend("fill", title = input$fill1) %>% bind_shiny("plot_scatter", "plot_scatter_ui")
-    }})
-  
-  observe({
-    if (is.null(InputData()))
-      return(NULL) else {
-      abc() %>% ggvis(x=~x,y=~y,fill=~fill) %>%
-        layer_points() %>%
-        layer_smooths(span = input_slider(0.1, 1))%>%
-        add_axis("x", title = input$xvar1) %>%
-        add_axis("y", title = input$yvar1) %>%
-        add_legend("fill", title = input$fill1) %>% bind_shiny("plot_smooth", "plot_smooth_ui")
-    }})
   
 })
