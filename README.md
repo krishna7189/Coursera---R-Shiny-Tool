@@ -32,13 +32,6 @@ Tool Features - Basic Plots using ggplot Package
 4. Box Plots - For Categorical Variable (X) and Continous Variable (Y)
 
 
-Tool Features - Advanced Plots using ggvis Package
-
-1. Scatter Plots - For Continuous X and Y Variables with additional Fill Variable
-
-2. Smooth Lines - Smoothing on Scatter Plots to observe Trend Patterns
-
-
 Hope you have fun Using the Tool!!!
 
 
